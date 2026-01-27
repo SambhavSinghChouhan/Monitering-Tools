@@ -195,7 +195,7 @@ This is useful for:
 | Grafana    | http://<server-ip>:3000 |
 | Prometheus | http://<server-ip>:9090 |
 
-![Prometheus Dashboard](images/prometheus-dashboard.jpg)
+![Prometheus Dashboard](images/prometheus-dashboard.jpg.jpeg)
 
 
 ### Default Grafana Credentials
@@ -215,7 +215,7 @@ Grafana dashboards include:
 - MongoDB performance metrics (connections, operations, memory usage)
 
 
-![Grafana Dashboard](images/grafana-dashboard.jpg)
+![Grafana Dashboard](images/grafana-dashboard.jpg.jpeg)
 
 ---
 
