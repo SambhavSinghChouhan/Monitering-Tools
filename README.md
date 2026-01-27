@@ -177,8 +177,8 @@ Within minutes, the monitoring stack will be live.
 You can also run the project manually without Jenkins:
 
 ```bash
-git clone https://github.com/SambhavSinghChouhan/Docker-Monitoring-Tools.git
-cd Docker-Monitoring-Tools
+git clone https://github.com/SambhavSinghChouhan/Monitering-Tools.git
+cd Monitering-Tools
 docker compose up -d
 ```
 This is useful for:
@@ -229,8 +229,6 @@ Grafana dashboards include:
 - Loki automatically collects logs from all running containers
 - Logs can be queried directly from Grafana using the **Explore** section
 - Useful for debugging and correlating logs with metrics
-
-<!-- IMAGE: Add Grafana Loki logs screenshot here -->
 
 ---
 
