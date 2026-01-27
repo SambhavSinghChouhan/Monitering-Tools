@@ -217,6 +217,11 @@ Grafana dashboards include:
 
 ![Grafana Dashboard](images/grafana-dashboard.jpg.jpeg)
 
+- Grafana have already assigned data sources of both prometheus and loki.
+
+![Grafana Dashboard](images/grafana-datasource.jpg.jpeg)
+
+
 ---
 
 ## 🧾 Logs with Loki
