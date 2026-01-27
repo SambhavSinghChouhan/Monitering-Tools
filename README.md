@@ -147,8 +147,8 @@ Configure the pipeline with the following settings:
 
 - **Pipeline definition**: Pipeline script from SCM  
 - **SCM**: Git  
-- **Repository URL**: `<your-repository-url>`  
-- **Credentials**: `<your-git-credentials>`  
+- **Repository URL**: `https://github.com/SambhavSinghChouhan/Monitering-Tools.git`  
+- **Credentials**: `no need for public repo`  
 - **Branch**: `main` (or your default branch)  
 - **Script Path**: `Jenkinsfile`
 
