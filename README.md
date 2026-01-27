@@ -58,7 +58,7 @@ Docker Compose
 
 
 ```
-![Architecture Diagram](images/architecture.jpg)
+![Architecture Diagram](images/architecture.jpg.jpeg)
 
 
 ## 📦 Components Included
