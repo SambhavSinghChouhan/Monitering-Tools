@@ -14,11 +14,22 @@ pipeline {
             }
         }
 
+        stage('Prepare System (Fix Jenkins Repo)') {
+            steps {
+                sh '''
+                echo "Removing broken Jenkins APT repo if present..."
+                sudo rm -f /etc/apt/sources.list.d/jenkins.list
+                sudo rm -f /etc/apt/trusted.gpg.d/jenkins.gpg
+                '''
+            }
+        }
+
         stage('Install Docker') {
             steps {
                 sh '''
                 if ! command -v docker >/dev/null 2>&1; then
                     echo "Docker not found. Installing Docker..."
+
                     sudo apt-get update -y
                     sudo apt-get install -y \
                         ca-certificates \
@@ -39,14 +50,12 @@ pipeline {
                 sh '''
                 echo "Configuring Docker permissions..."
 
-                # Add users to docker group
                 sudo usermod -aG docker jenkins || true
                 sudo usermod -aG docker $USER || true
 
-                # Restart docker so group changes are applied
                 sudo systemctl restart docker
 
-                # Give docker socket correct permissions (safety net)
+                # CI safety net
                 sudo chmod 666 /var/run/docker.sock
                 '''
             }
@@ -56,9 +65,10 @@ pipeline {
             steps {
                 sh '''
                 if ! command -v docker-compose >/dev/null 2>&1; then
-                    echo "Docker Compose not found. Installing..."
-                    sudo curl -L "https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-$(uname -s)-$(uname -m)" \
-                        -o /usr/local/bin/docker-compose
+                    echo "Installing Docker Compose..."
+                    sudo curl -L \
+                      "https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-$(uname -s)-$(uname -m)" \
+                      -o /usr/local/bin/docker-compose
                     sudo chmod +x /usr/local/bin/docker-compose
                 else
                     echo "Docker Compose already installed"
@@ -80,7 +90,7 @@ pipeline {
         stage('Start Monitoring Stack') {
             steps {
                 sh '''
-                echo "Starting containers..."
+                echo "Starting monitoring stack..."
                 docker compose up -d
                 docker ps
                 '''
