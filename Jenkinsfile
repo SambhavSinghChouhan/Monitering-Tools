@@ -27,10 +27,27 @@ pipeline {
                         lsb-release
 
                     curl -fsSL https://get.docker.com | sudo sh
-                    sudo usermod -aG docker $USER
                 else
                     echo "Docker already installed"
                 fi
+                '''
+            }
+        }
+
+        stage('Configure Docker Permissions') {
+            steps {
+                sh '''
+                echo "Configuring Docker permissions..."
+
+                # Add users to docker group
+                sudo usermod -aG docker jenkins || true
+                sudo usermod -aG docker $USER || true
+
+                # Restart docker so group changes are applied
+                sudo systemctl restart docker
+
+                # Give docker socket correct permissions (safety net)
+                sudo chmod 666 /var/run/docker.sock
                 '''
             }
         }
@@ -54,7 +71,8 @@ pipeline {
             steps {
                 sh '''
                 docker --version
-                docker-compose --version
+                docker compose version || docker-compose --version
+                docker info
                 '''
             }
         }
@@ -64,6 +82,7 @@ pipeline {
                 sh '''
                 echo "Starting containers..."
                 docker compose up -d
+                docker ps
                 '''
             }
         }
@@ -78,3 +97,4 @@ pipeline {
         }
     }
 }
+
